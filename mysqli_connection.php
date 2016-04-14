@@ -5,5 +5,6 @@ $db_conx = mysqli_connect("localhost","root","","ajax");
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  // error exection
   }
 ?>
