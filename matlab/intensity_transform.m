@@ -1,21 +1,4 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @ahmedkhaled4d
- Unwatch 1
-  Star 0
- Fork 3 ahmedkhaled4d/MATLAB
-forked from jaiverma/MATLAB
- Code  Pull requests 0  Projects 0  Wiki  Pulse  Graphs  Settings
-Branch: master Find file Copy pathMATLAB/intensity_transform/transform.m
-b5ae398  on Mar 26
-@jaiverma jaiverma Added files via upload
-1 contributor
-RawBlameHistory     
-69 lines (55 sloc)  1.26 KB
+
 img = imread('downtown.png');
 img = rgb2gray(img);
 
@@ -84,5 +67,4 @@ c5 = 1./(1+(0.6./(im+eps)).^4);
 
 imwrite(c4, 'downtown_c4.png');
 imwrite(c5, 'downtown_c5.png');
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help
+
