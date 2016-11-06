@@ -1,11 +1,19 @@
- pic = imread('friends.jpg');
+%**********************%
+% Ahmed Khaled Mohammed %
+%             20130025           %
+ 
+  pic = imread('friends.jpg');
     pic = rgb2gray(pic);  % convert it to gray level 
     [height, width] = size(pic); % return vector []
     range = 13; 
     dis = round(rand(1)*range);
     for r = 1:dis:height
         for c = 1:dis:width
-              
+                noise = 0 % default 
+                if(round(rand(1)) == 0)
+                    noise = 255
+                end
+               pic (r,c) = noise;
         end
     end
   
@@ -26,3 +34,11 @@
   imshow(pic);
   subplot(1,2,2);
   imshow(pic2);
+  
+ 
+
+
+ 
+
+
+ 
