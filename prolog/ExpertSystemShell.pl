@@ -2,6 +2,7 @@
 :- dynamic solved/1.
 
 % Saves the traceable components specified by the knowledge base.
+
 % This predicate is required in the knowledge base.
 :- dynamic traceable/2.
 
@@ -31,7 +32,7 @@ intro() :-
     write('Valid commands include \'solve\', \'how\', and \'end\'.'),
     nl,
     write('The \'how\' command can only be interpreted once \'solve\' has found a solution.'),
-    nl,
+ 
     nl.
 
 % Gets knowledge base.
