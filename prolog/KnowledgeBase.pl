@@ -82,14 +82,21 @@ spouse(X, Y)             :-  married(X, Y).
 husband(X, Y)            :-  male(X),       married(X, Y).
 wife(X, Y)               :-  female(X),     married(X, Y).
 father(X, Y)             :-  male(X),       parent(X, Y).
- 
+mother(X, Y)             :-  female(X),     parent(X, Y).
 sibling(X, Y)            :-  father(Z, X),  father(Z, Y),
                              mother(W, X),  mother(W, Y),    not(X = Y).
 brother(X, Y)            :-  male(X),       sibling(X, Y).
 sister(X, Y)             :-  female(X),     sibling(X, Y).
-grandparent(X, Z)        :-  
+grandparent(X, Z)        :-  parent(X, Y),  parent(Y, Z).
+grandfather(X, Z)        :-  male(X),       grandparent(X, Z).
+grandmother(X, Z)        :-  female(X),     grandparent(X, Z).
+grandchild(X, Z)         :-  grandparent(Z, X).
 grandson(X, Z)           :-  male(X),       grandchild(X, Z).
-granddaughter(X, Z)      :-  f 
+granddaughter(X, Z)      :-  female(X),     grandchild(X, Z).
+ancestor(X,Y)            :-  parent(X,Y).
+ancestor(X, Y)           :-  parent(X, Z),  ancestor(Z, Y).
+child(Y, X)              :-  parent(X, Y).
+son(Y, X)                :-  male(Y),       child(Y, X).
 daughter(Y, X)           :-  female(Y),     child(Y, X).
 descendent(Y, X)         :-  ancestor(X, Y).
 auntoruncle(X, W)        :-  sibling(X, Y), parent(Y, W).
@@ -100,8 +107,12 @@ cousin(X, Y)             :-  parent(Z, X),  auntoruncle(Z, Y).
 nieceornephew(X, Y)      :-  parent(Z, X),  sibling(Z, Y).
 nephew(X, Y)             :-  male(X),       nieceornephew(X, Y).
 niece(X, Y)              :-  female(X),     nieceornephew(X, Y).
-greatgrandparent(X, Z)   :-  parent(X, Y),  
- 
+greatgrandparent(X, Z)   :-  parent(X, Y),  grandparent(Y, Z).
+greatgrandfather(X, Z)   :-  male(X),       greatgrandparent(X, Z).
+greatgrandmother(X, Z)   :-  female(X),     greatgrandparent(X, Z).
+greatgrandchild(X, Z)    :-  child(X, Y),   grandchild(Y, Z).
+greatgrandson(X, Z)      :-  male(X),       greatgrandchild(X, Z).
+greatgranddaughter(X, Z) :-  female(X),     greatgrandchild(X, Z).
 parentinlaw(X, Y)        :-  married(Y, Z), parent(X, Z).
 fatherinlaw(X, Y)        :-  male(X),       parentinlaw(X, Y).
 motherinlaw(X, Y)        :-  female(X),     parentinlaw(X, Y).
@@ -111,5 +122,3 @@ sisterinlaw(X, Y)        :-  female(X),     siblinginlaw(X, Y).
 childinlaw(X, Y)         :-  married(X, Z), child(Z, Y).
 soninlaw(X, Y)           :-  male(X),       childinlaw(X, Y).
 daughterinlaw(X, Y)      :-  female(X),     childinlaw(X, Y).
-
-
