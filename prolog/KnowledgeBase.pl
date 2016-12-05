@@ -1,87 +1,36 @@
-%============================
-%     FACTS
-%===========================
+% ahmed  
+no_space(50).
+money_shortage(50).
+lack_playground(100).
+no_traineer.
 
-fruit(apple).
-fruit(tomato).
-fruit(pepper).
-fruit(orange).
-fruit(banana).
-fruit(black_eye_bean).
-fruit(broccoli).
-fruit(carrot).
-fruit(cherry).
-fruit(clementine).
-fruit(fig).
-fruit(garlic).
-fruit(grape).
-fruit(guava).
-fruit(kiwi).
-fruit(lemon).
-fruit(mango).
-fruit(watermelon).
-fruit(mushroom).
-fruit(olive).
 
-color(apple,red).
-color(tomato,red).
-color(pepper,green).
-color(orange,orange).
-color(banana,yellow).
-color(black_eye_bean,white).
-color(broccoli,green).
-color(carrot,orange).
-color(cherry,red).
-color(clementine,orange).
-color(fig,purple).
-color(garlic,white).
-color(grape,green).
-color(guava,yellow).
-color(kiwi,green).
-color(lemon,yellow).
-color(mango,yellow).
-color(watermelon,green).
-color(mushroom,white).
-color(olive,black).
+war(100).
+abuse(100).
+injunes(50).
+genetics(50).
+biological(30).
+enviromental(90).
 
-taste(apple,sweet).
-taste(tomato,savory).
-taste(pepper,spicy).
-taste(orange,sweet).
-taste(banana,sweet).
-taste(black_eye_bean,salty).
-taste(broccoli,salty).
-taste(carrot,savory).
-taste(cherry,sweet).
-taste(clementine,sweet).
-taste(fig,sweet).
-taste(garlic,sour).
-taste(grape,sweet).
-taste(guava,sweet).
-taste(kiwi,sweet).
-taste(lemon,sour).
-taste(mango,sweet).
-taste(watermelon,sweet).
-taste(mushroom,savory).
-taste(olive,salty).
 
-size(apple,medium).
-size(tomato,medium).
-size(pepper,medium).
-size(orange,medium).
-size(banana,medium).
-size(black_eye_bean,small).
-size(broccoli,medium).
-size(carrot,medium).
-size(cherry,small).
-size(clementine,medium).
-size(fig,medium).
-size(garlic,small).
-size(grape,small).
-size(guava,medium).
-size(kiwi,medium).
-size(lemon,small).
-Size(mango,medium).
-size(watermelon,large).
-size(mushroom,small).
-size(olive,small).
+fact(Prompt) :-
+	write(Prompt),
+	read(X),
+	X == true.
+
+problem(X) :-
+	sport,
+	X = 'sport problem'.
+
+% ===========
+% sport field
+% ===========
+
+sport :-
+	not(no_traineer),
+	lack_playground(100).
+
+lack_playground(CF) :-
+	no_space(CF2),
+	money_shortage(CF3),
+	CF is CF2 + (100-CF2) * CF3/100.
