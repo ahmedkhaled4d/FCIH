@@ -1,138 +1,110 @@
-%==========
-%  CFs 
-%==========
-poverty(50).
-illiteracy(50).
-knowledge(90).
-awarness(30).
-ethics(80) .
-no_space(50).
-no_traineer(100).
-money_shortage(50).
-lack_playground(100).
-war(100).
-abuse(100).
-injuries(50).
-genatics(50).
+rule(1,
+     lhs( [not(av(no_traineer, yes)), av(playground_problem, yes)] ),
+     rhs( av(problem, sport), 100) ).
 
-fact(Prompt) :-
-	write(Prompt),
-	read(X),
-	X == true.
+rule(2,
+     lhs( [av(money_shortage, yes)] ),
+     rhs( av(playground_problem, yes), 50) ).
 
-ethics_problem :-
-	fact('Are the students has ethics issue ?(true/false) ').
+rule(3,
+     lhs( [av(no_space, yes)] ),
+     rhs( av(playground_problem, yes), 50) ).
 
-poverty_problem :-
-	fact('Are the students suffer from the poverty problem ?(true/false) ').
+rule(4,
+     lhs( [av(genatics, yes)] ),
+     rhs( av(biological_problem, yes), 50) ).
 
-illiteracy_problem :-
-	fact('Are the students suffer from illiteracy ?(true/false)') .
+rule(5,
+     lhs( [av(injuries, yes)] ),
+     rhs( av(biological_problem, yes), 50) ).
 
-knowledge_problem :-
-	fact('Are the students suffer from the lack of knowledge ?(true/false)  ').
+rule(6,
+     lhs( [av(biological_problem, yes)] ),
+     rhs( av(psychological, yes), 30) ).
 
-awarness_problem :-
-	fact('Are the students suffer from the lack of Awarness ?(true/false) ').
+rule(7,
+     lhs( [av(enviomental_problem, yes)] ),
+     rhs( av(psychological, yes), 90) ).
 
 
-space_problem :-
-	fact('is the school  suffer from space problem ?(true/false)  ').
+rule(8,
+     lhs( [av(abuse, yes), av(war, yes)] ),
+     rhs( av(problem, enviomental_problem), 100) ).
+%
+% abubakr
+%
+rule(9,
+	 lhs( [av(ethics_problem,yes) , av(parents_problem,yes)] ) ,
+	 rhs( av(school_problem, social), 80) ) .
 
-money_problem :-
-	fact('is the school suffer from the shotage of money ?(true/false)  ').
+rule(10,
+     lhs( [av(poverty, yes)] ),
+     rhs( av(parents_problem, yes), 50) ).
 
-traineer_problem :-
-	fact('is the school suffer from the shotage of traineers ?(true/false)  ').
-
-war_problem :-
-	fact('is the country suffer from the wars ?(true/false)  ').
-
-abuse_problem :-
-	fact('Are the students suffer from the abuse ?(true/false)  ').
-
-genatics_problem :-
-	fact('Are the students have Genetic problems ?(true/false)  ').
-
-injuries_problem :-
-	fact('Are the students suffer from the injuries ?(true/false)  ').
+rule(11,
+     lhs( [av(illiteracy, yes)] ),
+     rhs( av(parents_problem, yes), 50) ).
 
 
+rule(12,
+	 lhs( [av(parents_problem, yes), av(knowledge_problem, yes)]),
+	 rhs( av(school_problem , cultural), 90 )).
 
+rule(13,
+	 lhs( [av(parents_problem, yes), av(awarness_problem, yes)]),
+	 rhs( av(school_problem , cultural), 30 )).
+	 
+rule(14,
+     lhs( [av(violence_with_teacher, yes)] ),
+     rhs( av(violence, yes), 50) ).
 
-search(X) :-
-	school_problem(X).
+rule(15,
+     lhs( [av(violence_with_students, yes)] ),
+     rhs( av(violence, yes), 50) ).
+	 
+rule(16,
+     lhs( [av(teacher_effiency_low, yes)] ),
+     rhs( av(educational, yes), 70) ).
 
-parents_problem(CF):-
-	poverty(CF1) ,
-	illiteracy(CF2) ,
-	CF is (CF1+CF2)/2 .
+rule(17,
+     lhs( [av(student_IQ_low, yes)] ),
+     rhs( av(educational, yes), 30) ).
+	 
 
-playground_problem(CF):-
-	no_space(CF1) ,
-    money_shortage(CF2) ,
-	CF is (CF1+CF2)/2 .
+rule(18,
+     lhs( [av(lack_of_lab, yes)] ),
+     rhs( av(technology, yes), 35) ).
 
-enviomental_problem(CF):-
-	abuse(CF1) ,
-    war(CF2) ,
-	CF is (CF1+CF2)/2 .
+rule(19,
+     lhs( [av(old_computers, yes)] ),
+     rhs( av(technology, yes), 40) ).
 
-biological_problem(CF):-
-	genatics(CF1) ,
-    injuries(CF2) ,
-	CF is (CF1+CF2)/2 .
+rule(20,
+     lhs( [av(old_software, yes)] ),
+     rhs( av(technology, yes), 35) ).
 
-
- school_problem(social) :-
-	social,
-	write('it is a social problem with CF = ') ,
-	ethics(CF1) ,
-	poverty(CF2) ,
-	illiteracy(CF3),
-	AV is (CF1+CF2+CF3)/3 ,
-	write(AV) .
-
- school_problem(cultural) :-
-	cultural,
-	awarness(CF),
-	knowledge(CF1) ,
-	parents_problem(CF2) ,
-	AV is (CF+CF1+CF2)/3 ,
-	write(AV) .
-
-school_problem(sport) :-
-	sport,
-	no_traineer(CF),
-	playground_problem(CF1) ,
-	AV is (CF+CF1)/2 ,
-	write(AV) .
-
-school_problem(psychological) :-
-	psychological,
-	enviomental_problem(CF),
-	biological_problem(CF1) ,
-	AV is (CF+CF1)/2 ,
-	write(AV) .
-
- school_problem(X) :-
-	((social, X = 'social');(cultural, X = 'cultural');(sport, X = 'sport');(psychological, X = 'psychological')).
-
-sport :-
-	traineer_problem ,
-	(money_problem;space_problem).
  
-social :-
-	ethics_problem ,
-	poverty_problem ,
-	illiteracy_problem .
+
+
+askable(no_traineer, 'Did the school suffer from the shotage of traineers ? ?').
+askable(money_shortage, 'Did the school suffer from the shotage of money ?').
+askable(no_space, 'Did the school  suffer from space problem ?').
+askable(abuse, 'Did the students suffer from the abuse ?').
+askable(war, 'Did the country suffer from the wars ?').
+askable(genatics, 'Did the students have Genetic problems ?').
+askable(injuries, 'Did the students suffer from the injuries ?').
+askable(illiteracy, 'Did the parents suffer from illiteracy ?').
+askable(poverty, 'Did the parents suffer from poverty ?').
+askable(ethics_problem, 'Did the student has ethics problem ?').
+askable(knowledge_problem, 'Does the student has less in knowledge ?').
+askable(awarness_problem, 'Does the student has less in awarness ?').
+
+askable(old_software, 'Did the school suffer from old software ?').
+askable(old_computers, 'Did the school suffer from old computers ?').
+askable(lack_of_lab, 'Did the school suffer from lack of lab ?').
+askable(student_IQ_low, 'Did the students have IQ low ?').
+askable(violence_with_teacher, 'Did the students suffer from violence with teacher?').
+askable(violence_with_students, 'Does the student has violence with his colleges ?').
 
 
 
-cultural :-
-	(poverty_problem;illiteracy_problem) ,(knowledge_problem ; awarness_problem ).
-
-psychological :-
-	(war_problem;abuse_problem) ,
-	(genatics_problem;injuries_problem).
-  
